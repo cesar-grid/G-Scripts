@@ -152,9 +152,9 @@ function diaNoche() {
     }
   //Cierra conexion
   result.close();
-  sheetCollector.getRange('D8:H15').clearContent();    
+  sheetCollector.getRange('D33:H40').clearContent();    
   //Escribe datos en las celdas
-  sheetCollector.getRange(8,4, values.length, value.length).setValues(values);
+  sheetCollector.getRange(33,4, values.length, value.length).setValues(values);
   
   var result = connection.createStatement().executeQuery(EnventosDiaNocheEscalados);
   var metaData = result.getMetaData();
@@ -179,9 +179,9 @@ function diaNoche() {
   }
   //Cierra conexion
   result.close(); 
-  sheetCollector.getRange('D17:H24').clearContent();
+  sheetCollector.getRange('D42:H49').clearContent();
   //Escribe datos en las celdas
-  sheetCollector.getRange(17,4, values.length, value.length).setValues(values);
+  sheetCollector.getRange(42,4, values.length, value.length).setValues(values);
   SpreadsheetApp.getActive().toast('Datos actualizado correctamente [Tab: Collector]!');   
   }catch(err){
     SpreadsheetApp.getActive().toast(err.message);
