@@ -330,3 +330,52 @@ function moveCols() {
   SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N39').setValue(0);
   SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N40').setValue(0);
 }
+
+function eventosAreas() {
+  var ss = SpreadsheetApp.getActive();
+  var sheetConfig = ss.getSheetByName('Config');
+  var sheetCollector = ss.getSheetByName('Collector');
+  var host = sheetConfig.getRange("B1").getValue();
+  var database = sheetConfig.getRange("B2").getValue();
+  var user = sheetConfig.getRange("B3").getValue();
+  var password = sheetConfig.getRange("B4").getValue();
+  var port = sheetConfig.getRange("B5").getValue();
+  var FechaInicio = sheetCollector.getRange("L4").getValue();
+  var FechaFin = sheetCollector.getRange("L5").getValue();
+  var Cliente = sheetConfig.getRange("B6").getValue();  
+  var url = 'jdbc:mysql://'+host+':'+port+'/'+database;
+  var EventosGenerados = 'SELECT D.value_text AS Area, COUNT(1) Total, SUM(CASE WHEN T.ticket_state_id = 11 THEN 1 ELSE 0 END) Escalados, SUM(CASE WHEN T.user_id = 1 THEN 1 ELSE 0 END) SinAnalisis FROM ticket T INNER JOIN dynamic_field_value D ON T.id = D.object_id WHERE T.queue_id IN (8, 9, 10) AND T.create_time BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") AND D.value_text  in ("Windows","Conectividad","Unix","Oracle","Telefonia","AS400","database","Fortigate","Seguridad") group by D.value_text order by D.value_text  asc';
+
+  try{
+    var connection = Jdbc.getConnection(url, user, password);
+    var result = connection.createStatement().executeQuery(EventosGenerados);
+    var metaData = result.getMetaData();
+    var columns = metaData.getColumnCount();  
+    var values = [];
+    var value = [];
+    var element = '';
+
+    for (i = 1; i <= columns; i ++){
+      element = metaData.getColumnLabel(i);
+      value.push(element);
+    }
+    values.push(value);
+  
+    while(result.next()){
+      value = [];
+      for (i = 1; i <= columns; i ++){
+        element = result.getString(i);
+        value.push(element);
+      }
+        values.push(value);
+    }
+  //Cierra conexion
+    result.close();
+   sheetCollector.getRange('D4:G13').clearContent();
+  //Escribe datos en las celdas
+    sheetCollector.getRange(4,4, values.length, value.length).setValues(values);
+    SpreadsheetApp.getActive().toast('Datos actualizado correctamente en [Tab: Collector]!');
+  }catch(err){
+    SpreadsheetApp.getActive().toast(err.message);
+  } 
+}
