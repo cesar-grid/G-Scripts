@@ -380,3 +380,60 @@ function eventosAreas() {
     SpreadsheetApp.getActive().toast(err.message);
   } 
 }
+
+function topAreas() {
+  var ss = SpreadsheetApp.getActive();
+  var sheetConfig = ss.getSheetByName('Config');
+  var sheetCollector = ss.getSheetByName('Collector');
+  var host = sheetConfig.getRange("B1").getValue();
+  var database = sheetConfig.getRange("B2").getValue();
+  var user = sheetConfig.getRange("B3").getValue();
+  var password = sheetConfig.getRange("B4").getValue();
+  var port = sheetConfig.getRange("B5").getValue();
+  var FechaInicio = sheetCollector.getRange("L4").getValue();
+  var FechaFin = sheetCollector.getRange("L5").getValue();
+  var Cliente = sheetConfig.getRange("B6").getValue();  
+  var url = 'jdbc:mysql://'+host+':'+port+'/'+database;
+  var topWindows = 'SELECT T.title AS Titulo, count(2) AS Total FROM ticket T INNER JOIN dynamic_field_value D ON T.id = D.object_id WHERE T.queue_id IN (8, 9, 10) AND T.create_time BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") AND D.field_id = 15 AND D.value_text = "Windows" GROUP BY T.title ORDER BY Total DESC limit 0, 25';
+  var topConectividad = 'SELECT T.title AS Titulo, count(2) AS Total FROM ticket T INNER JOIN dynamic_field_value D ON T.id = D.object_id WHERE T.queue_id IN (8, 9, 10) AND T.create_time BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") AND D.field_id = 15 AND D.value_text = "Conectividad" GROUP BY T.title ORDER BY Total DESC limit 0, 25';
+  var topUnix = 'SELECT T.title AS Titulo, count(2) AS Total FROM ticket T INNER JOIN dynamic_field_value D ON T.id = D.object_id WHERE T.queue_id IN (8, 9, 10) AND T.create_time BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") AND D.field_id = 15 AND D.value_text = "Unix" GROUP BY T.title ORDER BY Total DESC limit 0, 25';
+  var topOracle = 'SELECT T.title AS Titulo, count(2) AS Total FROM ticket T INNER JOIN dynamic_field_value D ON T.id = D.object_id WHERE T.queue_id IN (8, 9, 10) AND T.create_time BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") AND D.field_id = 15 AND D.value_text = "Oracle" GROUP BY T.title ORDER BY Total DESC limit 0, 25';
+  var topTelefonia = 'SELECT T.title AS Titulo, count(2) AS Total FROM ticket T INNER JOIN dynamic_field_value D ON T.id = D.object_id WHERE T.queue_id IN (8, 9, 10) AND T.create_time BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") AND D.field_id = 15 AND D.value_text = "telefonia" GROUP BY T.title ORDER BY Total DESC limit 0, 25';
+  var topAs400 = 'SELECT T.title AS Titulo, count(2) AS Total FROM ticket T INNER JOIN dynamic_field_value D ON T.id = D.object_id WHERE T.queue_id IN (8, 9, 10) AND T.create_time BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") AND D.field_id = 15 AND D.value_text = "as400" GROUP BY T.title ORDER BY Total DESC limit 0, 25';
+  var topMssql = 'SELECT T.title AS Titulo, count(2) AS Total FROM ticket T INNER JOIN dynamic_field_value D ON T.id = D.object_id WHERE T.queue_id IN (8, 9, 10) AND T.create_time BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") AND D.field_id = 15 AND D.value_text = "database" GROUP BY T.title ORDER BY Total DESC limit 0, 25';
+  var topFortigate = 'SELECT T.title AS Titulo, count(2) AS Total FROM ticket T INNER JOIN dynamic_field_value D ON T.id = D.object_id WHERE T.queue_id IN (8, 9, 10) AND T.create_time BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") AND D.field_id = 15 AND D.value_text = "Fortigate" GROUP BY T.title ORDER BY Total DESC limit 0, 25';
+  var topSeguridad = 'SELECT T.title AS Titulo, count(2) AS Total FROM ticket T INNER JOIN dynamic_field_value D ON T.id = D.object_id WHERE T.queue_id IN (8, 9, 10) AND T.create_time BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") AND D.field_id = 15 AND D.value_text = "Seguridad" GROUP BY T.title ORDER BY Total DESC limit 0, 25';
+  
+  try{
+    var connection = Jdbc.getConnection(url, user, password);
+    var result = connection.createStatement().executeQuery(topWindows);
+    var metaData = result.getMetaData();
+    var columns = metaData.getColumnCount();  
+    var values = [];
+    var value = [];
+    var element = '';
+
+    for (i = 1; i <= columns; i ++){
+      element = metaData.getColumnLabel(i);
+      value.push(element);
+    }
+    values.push(value);
+  
+    while(result.next()){
+      value = [];
+      for (i = 1; i <= columns; i ++){
+        element = result.getString(i);
+        value.push(element);
+      }
+        values.push(value);
+    }
+  //Cierra conexion
+    result.close();
+   sheetCollector.getRange('A33:B58').clearContent();
+  //Escribe datos en las celdas
+    sheetCollector.getRange(33,1, values.length, value.length).setValues(values);
+    SpreadsheetApp.getActive().toast('Datos actualizado correctamente en [Tab: Collector]');
+  }catch(err){
+    SpreadsheetApp.getActive().toast(err.message);
+  } 
+}
