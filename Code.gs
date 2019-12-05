@@ -56,7 +56,7 @@ function eventosOTRS() {
     result.close();
   //Escribe datos en las celdas
     sheetCollector.getRange(1,1, values.length, value.length).setValues(values);
-    SpreadsheetApp.getActive().toast('Datos actualizado correctamente en [Tab: Collector]!');
+    SpreadsheetApp.getActive().toast('Datos actualizado correctamente [Tab: Collector]!');
   }catch(err){
     SpreadsheetApp.getActive().toast(err.message);
   } 
@@ -75,7 +75,7 @@ function topAlertProducers() {
   var FechaFin = sheetCollector.getRange("L5").getValue();
   var Cliente = sheetConfig.getRange("B6").getValue();  
   var url = 'jdbc:mysql://'+host+':'+port+'/'+database;
-  var Top25 = 'SELECT ticket.title, COUNT(1) AS Total FROM customer_company, ticket WHERE ticket.customer_id = customer_company.customer_id AND ticket.archive_flag IN (0,1) AND ticket.queue_id IN(8,9,10) AND customer_company.customer_id  = "'+Cliente+'" AND ticket.create_time BETWEEN CONCAT(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") GROUP BY ticket.title ORDER BY Total desc limit 0, 25';
+  var Top25 = 'SELECT ticket.title, COUNT(1) AS Total FROM customer_company, ticket WHERE ticket.customer_id = customer_company.customer_id AND customer_company.valid_id = 1 AND customer_company.customer_id  = "'+Cliente+'" AND ticket.create_time BETWEEN CONCAT(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") GROUP BY ticket.title ORDER BY Total desc limit 0, 25';
 
   try{
     var connection = Jdbc.getConnection(url, user, password); 
@@ -329,4 +329,61 @@ function moveCols() {
   SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N38').setValue(0);
   SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N39').setValue(0);
   SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N40').setValue(0);
+}
+
+// Datos especificos de este cliente
+
+function eventosOTRSICE() {
+  var ss = SpreadsheetApp.getActive();
+  var sheetConfig = ss.getSheetByName('Config');
+  var sheetCollector = ss.getSheetByName('Collector');
+  
+  var host = sheetConfig.getRange("B1").getValue();
+  var database = sheetConfig.getRange("B2").getValue();
+  var user = sheetConfig.getRange("B3").getValue();
+  var password = sheetConfig.getRange("B4").getValue();
+  var port = sheetConfig.getRange("B5").getValue();
+  var FechaInicio = sheetCollector.getRange("L4").getValue();
+  var FechaFin = sheetCollector.getRange("L5").getValue();
+  var Cliente = sheetConfig.getRange("B6").getValue();
+  
+  var url = 'jdbc:mysql://'+host+':'+port+'/'+database;
+  //var EventosGeneradosICE = 'SELECT COUNT(*) "TOTAL TICKETS", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%WS_CONSULTA_SIM%" THEN 1 ELSE 0 END) "SIM", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%WS_CONSULTA_MOROSIDAD%" THEN 1 ELSE 0 END) "MOROSIDAD", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%WS_CONSULTA_IMEI%" THEN 1 ELSE 0 END) "IMEI", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%MQ-RECAUDACION%" THEN 1 ELSE 0 END) "MQ-RECAUDACION", SUM(CASE WHEN SUBSTRING(title,20) REGEXP "POSIBLES-MULTAS|POSIBLES_MULTAS" THEN 1 ELSE 0 END) "POSIBLES-MULTAS", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%MQ-CU068%" THEN 1 ELSE 0 END) "MQ-CU068", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%AGENCIA_-_VIRTUAL%" THEN 1 ELSE 0 END) "AGENCIA-VIRTUAL", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%MI_KOLBI%" THEN 1 ELSE 0 END) "MI-KOLBI", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%KOMERCIALICE%" THEN 1 ELSE 0 END) "KOMERCIALICE", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%CONSULTA_CLIENTE_TEL%" THEN 1 ELSE 0 END) "CONSULTA-CLIENTE", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%VEP%" THEN 1 ELSE 0 END) "VEP", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%SIEBEL-%-MULTA%" THEN 1 ELSE 0 END) "SIEBEL-MULTA", (SUM(CASE WHEN SUBSTRING(title,20) LIKE "%SIEBEL%" THEN 1 ELSE 0 END) - SUM(CASE WHEN SUBSTRING(title,20) like "%SIEBEL-%-MULTA%" THEN 1 ELSE 0 END)) "TOTAL SIEBEL SIN MULTA", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%RED%" THEN 1 ELSE 0 END) "RED", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%SIVAC%" THEN 1 ELSE 0 END) "SIVAC", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%AGENCIA-%" THEN 1 ELSE 0 END) "PROBLEMAS CON PROBES", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%PEDIDOS%" THEN 1 ELSE 0 END) "CONSULTA DE PEDIDOS", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%CONSULTA_BENEFICIO%" THEN 1 ELSE 0 END) "CONSULTA DE BENEFICIOS" FROM ice_ticket_view WHERE ticket_state_id = 11 AND create_time BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") ORDER BY id DESC';
+  var EventosGeneradosICE = 'SELECT COUNT(*) "TOTAL TICKETS", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%CONSULTA_SIM%" THEN 1 ELSE 0 END) "SIM", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%CONSULTA_MOROSIDAD%" THEN 1 ELSE 0 END) "MOROSIDAD", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%CONSULTA_IMEI%" THEN 1 ELSE 0 END) "IMEI", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%MQ-RECAUDACION%" THEN 1 ELSE 0 END) "MQ-RECAUDACION", SUM(CASE WHEN SUBSTRING(title,20) REGEXP "POSIBLES-MULTAS|POSIBLES_MULTAS" THEN 1 ELSE 0 END) "POSIBLES-MULTAS", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%MQ-CU068%" THEN 1 ELSE 0 END) "MQ-CU068", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%KOLBI%" THEN 1 ELSE 0 END) "MI-KOLBI", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%VEP%" THEN 1 ELSE 0 END) "VEP", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%SIEBEL-%-MULTA%" THEN 1 ELSE 0 END) "SIEBEL-MULTA", (SUM(CASE WHEN SUBSTRING(title,20) LIKE "%SIEBEL%" THEN 1 ELSE 0 END) - SUM(CASE WHEN SUBSTRING(title,20) like "%SIEBEL-%-MULTA%" THEN 1 ELSE 0 END)) "TOTAL SIEBEL SIN MULTA", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%RED%" THEN 1 ELSE 0 END) "RED", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%SIVAC%" THEN 1 ELSE 0 END) "SIVAC", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%Icinga%Cluster%" THEN 1 ELSE 0 END) "PROBLEMAS CON PROBES", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%PEDIDOS_ABIERTOS%" THEN 1 ELSE 0 END) "CONSULTA DE PEDIDOS", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%CONSULTA_BENEFICIO%" THEN 1 ELSE 0 END) "CONSULTA DE BENEFICIOS", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%KOMERCIALICE%" THEN 1 ELSE 0 END) "KOMERCIALICE", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%KO_CONSULTA%" THEN 1 ELSE 0 END) "KO CONSULTA PREPAGO", SUM(CASE WHEN SUBSTRING(title,20) LIKE "%ADMINCU%" THEN 1 ELSE 0 END) "ADMINCU", (SUM(CASE WHEN SUBSTRING(title,20) LIKE "%CONSULTA_SIM%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%CONSULTA_MOROSIDAD%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%CONSULTA_IMEI%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%MQ-RECAUDACION%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) REGEXP "POSIBLES-MULTAS|POSIBLES_MULTAS" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%MQ-CU068%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%AGENCIA_-_VIRTUAL%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%MI_KOLBI%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%VEP%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%SIEBEL-%-MULTA%" THEN 1 ELSE 0 END) + (SUM(CASE WHEN SUBSTRING(title,20) LIKE "%SIEBEL%" THEN 1 ELSE 0 END) - SUM(CASE WHEN SUBSTRING(title,20) like "%SIEBEL-%-MULTA%" THEN 1 ELSE 0 END)) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%RED%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%SIVAC%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%AGENCIA-%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%PEDIDOS_ABIERTOS%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%CONSULTA_BENEFICIO%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%KOMERCIALICE%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%KO_CONSULTA%" THEN 1 ELSE 0 END) + SUM(CASE WHEN SUBSTRING(title,20) LIKE "%ADMINCU%" THEN 1 ELSE 0 END) ) "TOTAL EVENTOS" FROM ice_ticket_view WHERE ticket_state_id = 11 AND create_time BETWEEN concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-"),"01 00:00:00") AND concat(date_format(LAST_DAY(now() - interval 1 month),"%Y-%m-%d")," 23:59:59") ORDER BY id DESC';
+
+  try{
+    var connection = Jdbc.getConnection(url, user, password);
+  
+    var result = connection.createStatement().executeQuery(EventosGeneradosICE);
+    var metaData = result.getMetaData();
+    var columns = metaData.getColumnCount();
+  
+    var values = [];
+    var value = [];
+    var element = '';
+
+    for (i = 1; i <= columns; i ++){
+      element = metaData.getColumnLabel(i);
+      value.push(element);
+    }
+    values.push(value);
+  
+    while(result.next()){
+      value = [];
+      for (i = 1; i <= columns; i ++){
+        element = result.getString(i);
+        value.push(element);
+      }
+      values.push(value);
+    }
+
+  //Cierra conexion
+  result.close();
+  
+  //Escribe datos en las celdas
+  sheetCollector.getRange(32,1, values.length, value.length).setValues(values);
+  SpreadsheetApp.getActive().toast('Datos actualizado correctamente!');
+  }catch(err){
+    SpreadsheetApp.getActive().toast(err.message);
+  } 
 }
