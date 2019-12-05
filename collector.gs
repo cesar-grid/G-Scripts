@@ -2,6 +2,7 @@ function onOpen(){
   var ui = SpreadsheetApp.getUi();
   ui.createMenu("Generar CSR")
   .addItem('Eventos generados', 'eventosOTRS')
+  .addItem('Eventos por Areas', 'eventosAreas')
   .addItem('Top 25', 'topAlertProducers')
   .addItem('Eventos por turno', 'diaNoche')
   .addItem('Ayuda', 'showHelp')
