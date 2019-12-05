@@ -106,7 +106,7 @@ function topAlertProducers() {
     sheetCollector.getRange('A6:B30').clearContent();
   //Escribe datos en las celdas
     sheetCollector.getRange(5,1, values.length, value.length).setValues(values);
-    SpreadsheetApp.getActive().toast('Datos actualizado correctamente [Tab: Collector]');
+    SpreadsheetApp.getActive().toast('Datos actualizado correctamente en [Tab: Collector]');
   }catch(err){
     SpreadsheetApp.getActive().toast(err.message);
   } 
@@ -183,7 +183,7 @@ function diaNoche() {
   sheetCollector.getRange('D42:H49').clearContent();
   //Escribe datos en las celdas
   sheetCollector.getRange(42,4, values.length, value.length).setValues(values);
-  SpreadsheetApp.getActive().toast('Datos actualizado correctamente [Tab: Collector]!');   
+  SpreadsheetApp.getActive().toast('Datos actualizado correctamente en [Tab: Collector]!');   
   }catch(err){
     SpreadsheetApp.getActive().toast(err.message);
   } 
