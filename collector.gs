@@ -579,6 +579,63 @@ function topAreas() {
   sheetCollector.getRange(173, 1, values.length, value.length).setValues(values);
   SpreadsheetApp.getActive().toast('Top AS400 Actualizado Correctamente.');   
 
+  var connection = Jdbc.getConnection(url, user, password);
+  var result = connection.createStatement().executeQuery(topMssql);
+  var metaData = result.getMetaData();
+  var columns = metaData.getColumnCount();
+  var values = [];
+  var value = [];
+  var element = '';
+
+  for (i = 1; i <= columns; i++) {
+   element = metaData.getColumnLabel(i);
+   value.push(element);
+  }
+  values.push(value);
+
+  while (result.next()) {
+   value = [];
+   for (i = 1; i <= columns; i++) {
+    element = result.getString(i);
+    value.push(element);
+   }
+   values.push(value);
+  }
+  //Cierra conexion
+  result.close();
+  sheetCollector.getRange('A201:B226').clearContent();
+  //Escribe datos en las celdas
+  sheetCollector.getRange(201, 1, values.length, value.length).setValues(values);
+  SpreadsheetApp.getActive().toast('Top MSSQL Actualizado Correctamente.');   
+
+  var connection = Jdbc.getConnection(url, user, password);
+  var result = connection.createStatement().executeQuery(topFortigate);
+  var metaData = result.getMetaData();
+  var columns = metaData.getColumnCount();
+  var values = [];
+  var value = [];
+  var element = '';
+
+  for (i = 1; i <= columns; i++) {
+   element = metaData.getColumnLabel(i);
+   value.push(element);
+  }
+  values.push(value);
+
+  while (result.next()) {
+   value = [];
+   for (i = 1; i <= columns; i++) {
+    element = result.getString(i);
+    value.push(element);
+   }
+   values.push(value);
+  }
+  //Cierra conexion
+  result.close();
+  sheetCollector.getRange('A229:B254').clearContent();
+  //Escribe datos en las celdas
+  sheetCollector.getRange(229, 1, values.length, value.length).setValues(values);
+  SpreadsheetApp.getActive().toast('Top Fortigate Actualizado Correctamente.');     
    
  } catch (err) {
   SpreadsheetApp.getActive().toast(err.message);
