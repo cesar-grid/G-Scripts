@@ -4,6 +4,7 @@ function onOpen(){
   .addItem('Eventos generados', 'eventosOTRS')
   .addItem('Eventos por Areas', 'eventosAreas')
   .addItem('Top 25', 'topAlertProducers')
+  .addItem('Top 25 Areas', 'topAreas')
   .addItem('Eventos por turno', 'diaNoche')
   .addItem('Ayuda', 'showHelp')
   .addToUi();
@@ -636,6 +637,35 @@ function topAreas() {
   //Escribe datos en las celdas
   sheetCollector.getRange(229, 1, values.length, value.length).setValues(values);
   SpreadsheetApp.getActive().toast('Top Fortigate Actualizado Correctamente.');     
+   
+  var connection = Jdbc.getConnection(url, user, password);
+  var result = connection.createStatement().executeQuery(topSeguridad);
+  var metaData = result.getMetaData();
+  var columns = metaData.getColumnCount();
+  var values = [];
+  var value = [];
+  var element = '';
+
+  for (i = 1; i <= columns; i++) {
+   element = metaData.getColumnLabel(i);
+   value.push(element);
+  }
+  values.push(value);
+
+  while (result.next()) {
+   value = [];
+   for (i = 1; i <= columns; i++) {
+    element = result.getString(i);
+    value.push(element);
+   }
+   values.push(value);
+  }
+  //Cierra conexion
+  result.close();
+  sheetCollector.getRange('A257:B282').clearContent();
+  //Escribe datos en las celdas
+  sheetCollector.getRange(257, 1, values.length, value.length).setValues(values);
+  SpreadsheetApp.getActive().toast('Top Seguridad Actualizado Correctamente.');        
    
  } catch (err) {
   SpreadsheetApp.getActive().toast(err.message);
