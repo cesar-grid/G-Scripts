@@ -7,6 +7,7 @@ function onOpen(){
   .addItem('Top 25 Areas', 'topAreas')
   .addItem('Eventos por turno', 'diaNoche')
   .addItem('Ayuda', 'showHelp')
+  .addItem('Ayuda???', 'moveCols2')
   .addToUi();
 }
 
@@ -665,9 +666,179 @@ function topAreas() {
   sheetCollector.getRange('A257:B282').clearContent();
   //Escribe datos en las celdas
   sheetCollector.getRange(257, 1, values.length, value.length).setValues(values);
-  SpreadsheetApp.getActive().toast('Top Seguridad Actualizado Correctamente.');        
+  SpreadsheetApp.getActive().toast('Top Seguridad Actualizado Correctamente.');     
    
  } catch (err) {
   SpreadsheetApp.getActive().toast(err.message);
  }
 }
+
+function moveCols2() {
+  var ss = SpreadsheetApp.getActive();
+  var sourceSheet = ss.getSheetByName('Analisis por area');
+  var destSheet = ss.getSheetByName('Analisis por area');
+  
+  //Conectividad													
+  sourceSheet.getRange('C3:C7').copyTo(destSheet.getRange('B3:B7'))
+  sourceSheet.getRange('D3:D7').copyTo(destSheet.getRange('C3:C7'))
+  sourceSheet.getRange('E3:E7').copyTo(destSheet.getRange('D3:D7'))
+  sourceSheet.getRange('F3:F7').copyTo(destSheet.getRange('E3:E7'))
+  sourceSheet.getRange('G3:G7').copyTo(destSheet.getRange('F3:F7'))
+  sourceSheet.getRange('H3:H7').copyTo(destSheet.getRange('G3:G7'))
+  sourceSheet.getRange('I3:I7').copyTo(destSheet.getRange('H3:H7'))
+  sourceSheet.getRange('J3:J7').copyTo(destSheet.getRange('I3:I7'))
+  sourceSheet.getRange('K3:K7').copyTo(destSheet.getRange('J3:J7'))
+  sourceSheet.getRange('L3:L7').copyTo(destSheet.getRange('K3:K7'))
+  sourceSheet.getRange('M3:M7').copyTo(destSheet.getRange('L3:L7'))
+  sourceSheet.getRange('N3:N7').copyTo(destSheet.getRange('M3:M7'),{contentsOnly:true})
+  sourceSheet.getRange('B3').copyTo(destSheet.getRange('N3'))
+  //Windows
+  sourceSheet.getRange('C9:C13').copyTo(destSheet.getRange('B9:B13'))
+  sourceSheet.getRange('D9:D13').copyTo(destSheet.getRange('C9:C13'))
+  sourceSheet.getRange('E9:E13').copyTo(destSheet.getRange('D9:D13'))
+  sourceSheet.getRange('F9:F13').copyTo(destSheet.getRange('E9:E13'))
+  sourceSheet.getRange('G9:G13').copyTo(destSheet.getRange('F9:F13'))
+  sourceSheet.getRange('H9:H13').copyTo(destSheet.getRange('G9:G13'))
+  sourceSheet.getRange('I9:I13').copyTo(destSheet.getRange('H9:H13'))
+  sourceSheet.getRange('J9:J13').copyTo(destSheet.getRange('I9:I13'))
+  sourceSheet.getRange('K9:K13').copyTo(destSheet.getRange('J9:J13'))
+  sourceSheet.getRange('L9:L13').copyTo(destSheet.getRange('K9:K13'))
+  sourceSheet.getRange('M9:M13').copyTo(destSheet.getRange('L9:L13'))
+  sourceSheet.getRange('N9:N13').copyTo(destSheet.getRange('M9:M13'),{contentsOnly:true})
+  sourceSheet.getRange('B9').copyTo(destSheet.getRange('N9'))
+  //Unix
+  sourceSheet.getRange('C15:C19').copyTo(destSheet.getRange('B15:B19'))
+  sourceSheet.getRange('D15:D19').copyTo(destSheet.getRange('C15:C19'))
+  sourceSheet.getRange('E15:E19').copyTo(destSheet.getRange('D15:D19'))
+  sourceSheet.getRange('F15:F19').copyTo(destSheet.getRange('E15:E19'))
+  sourceSheet.getRange('G15:G19').copyTo(destSheet.getRange('F15:F19'))
+  sourceSheet.getRange('H15:H19').copyTo(destSheet.getRange('G15:G19'))
+  sourceSheet.getRange('I15:I19').copyTo(destSheet.getRange('H15:H19'))
+  sourceSheet.getRange('J15:J19').copyTo(destSheet.getRange('I15:I19'))
+  sourceSheet.getRange('K15:K19').copyTo(destSheet.getRange('J15:J19'))
+  sourceSheet.getRange('L15:L19').copyTo(destSheet.getRange('K15:K19'))
+  sourceSheet.getRange('M15:M19').copyTo(destSheet.getRange('L15:L19'))
+  sourceSheet.getRange('N15:N19').copyTo(destSheet.getRange('M15:M19'),{contentsOnly:true})
+  sourceSheet.getRange('B15').copyTo(destSheet.getRange('N15'))
+  //Oracle
+  sourceSheet.getRange('C21:C25').copyTo(destSheet.getRange('B21:B25'))
+  sourceSheet.getRange('D21:D25').copyTo(destSheet.getRange('C21:C25'))
+  sourceSheet.getRange('E21:E25').copyTo(destSheet.getRange('D21:D25'))
+  sourceSheet.getRange('F21:F25').copyTo(destSheet.getRange('E21:E25'))
+  sourceSheet.getRange('G21:G25').copyTo(destSheet.getRange('F21:F25'))
+  sourceSheet.getRange('H21:H25').copyTo(destSheet.getRange('G21:G25'))
+  sourceSheet.getRange('I21:I25').copyTo(destSheet.getRange('H21:H25'))
+  sourceSheet.getRange('J21:J25').copyTo(destSheet.getRange('I21:I25'))
+  sourceSheet.getRange('K21:K25').copyTo(destSheet.getRange('J21:J25'))
+  sourceSheet.getRange('L21:L25').copyTo(destSheet.getRange('K21:K25'))
+  sourceSheet.getRange('M21:M25').copyTo(destSheet.getRange('L21:L25'))
+  sourceSheet.getRange('N21:N25').copyTo(destSheet.getRange('M21:M25'),{contentsOnly:true})
+  sourceSheet.getRange('B21').copyTo(destSheet.getRange('N21'))
+  //telefonia
+  sourceSheet.getRange('C27:C31').copyTo(destSheet.getRange('B27:B31'))
+  sourceSheet.getRange('D27:D31').copyTo(destSheet.getRange('C27:C31'))
+  sourceSheet.getRange('E27:E31').copyTo(destSheet.getRange('D27:D31'))
+  sourceSheet.getRange('F27:F31').copyTo(destSheet.getRange('E27:E31'))
+  sourceSheet.getRange('G27:G31').copyTo(destSheet.getRange('F27:F31'))
+  sourceSheet.getRange('H27:H31').copyTo(destSheet.getRange('G27:G31'))
+  sourceSheet.getRange('I27:I31').copyTo(destSheet.getRange('H27:H31'))
+  sourceSheet.getRange('J27:J31').copyTo(destSheet.getRange('I27:I31'))
+  sourceSheet.getRange('K27:K31').copyTo(destSheet.getRange('J27:J31'))
+  sourceSheet.getRange('L27:L31').copyTo(destSheet.getRange('K27:K31'))
+  sourceSheet.getRange('M27:M31').copyTo(destSheet.getRange('L27:L31'))
+  sourceSheet.getRange('N27:N31').copyTo(destSheet.getRange('M27:M31'),{contentsOnly:true})
+  sourceSheet.getRange('B27').copyTo(destSheet.getRange('N27'))
+  //AS400
+  sourceSheet.getRange('C33:C37').copyTo(destSheet.getRange('B33:B37'))
+  sourceSheet.getRange('D33:D37').copyTo(destSheet.getRange('C33:C37'))
+  sourceSheet.getRange('E33:E37').copyTo(destSheet.getRange('D33:D37'))
+  sourceSheet.getRange('F33:F37').copyTo(destSheet.getRange('E33:E37'))
+  sourceSheet.getRange('G33:G37').copyTo(destSheet.getRange('F33:F37'))
+  sourceSheet.getRange('H33:H37').copyTo(destSheet.getRange('G33:G37'))
+  sourceSheet.getRange('I33:I37').copyTo(destSheet.getRange('H33:H37'))
+  sourceSheet.getRange('J33:J37').copyTo(destSheet.getRange('I33:I37'))
+  sourceSheet.getRange('K33:K37').copyTo(destSheet.getRange('J33:J37'))
+  sourceSheet.getRange('L33:L37').copyTo(destSheet.getRange('K33:K37'))
+  sourceSheet.getRange('M33:M37').copyTo(destSheet.getRange('L33:L37'))
+  sourceSheet.getRange('N33:N37').copyTo(destSheet.getRange('M33:M37'),{contentsOnly:true})
+  sourceSheet.getRange('B33').copyTo(destSheet.getRange('N33'))
+  //MSSQL
+  sourceSheet.getRange('C39:C43').copyTo(destSheet.getRange('B39:B43'))
+  sourceSheet.getRange('D39:D43').copyTo(destSheet.getRange('C39:C43'))
+  sourceSheet.getRange('E39:E43').copyTo(destSheet.getRange('D39:D43'))
+  sourceSheet.getRange('F39:F43').copyTo(destSheet.getRange('E39:E43'))
+  sourceSheet.getRange('G39:G43').copyTo(destSheet.getRange('F39:F43'))
+  sourceSheet.getRange('H39:H43').copyTo(destSheet.getRange('G39:G43'))
+  sourceSheet.getRange('I39:I43').copyTo(destSheet.getRange('H39:H43'))
+  sourceSheet.getRange('J39:J43').copyTo(destSheet.getRange('I39:I43'))
+  sourceSheet.getRange('K39:K43').copyTo(destSheet.getRange('J39:J43'))
+  sourceSheet.getRange('L39:L43').copyTo(destSheet.getRange('K39:K43'))
+  sourceSheet.getRange('M39:M43').copyTo(destSheet.getRange('L39:L43'))
+  sourceSheet.getRange('N39:N43').copyTo(destSheet.getRange('M39:M43'),{contentsOnly:true})
+  sourceSheet.getRange('B39').copyTo(destSheet.getRange('N39'))
+  //Fortigate													
+  sourceSheet.getRange('C45:C49').copyTo(destSheet.getRange('B45:B49'))
+  sourceSheet.getRange('D45:D49').copyTo(destSheet.getRange('C45:C49'))
+  sourceSheet.getRange('E45:E49').copyTo(destSheet.getRange('D45:D49'))
+  sourceSheet.getRange('F45:F49').copyTo(destSheet.getRange('E45:E49'))
+  sourceSheet.getRange('G45:G49').copyTo(destSheet.getRange('F45:F49'))
+  sourceSheet.getRange('H45:H49').copyTo(destSheet.getRange('G45:G49'))
+  sourceSheet.getRange('I45:I49').copyTo(destSheet.getRange('H45:H49'))
+  sourceSheet.getRange('J45:J49').copyTo(destSheet.getRange('I45:I49'))
+  sourceSheet.getRange('K45:K49').copyTo(destSheet.getRange('J45:J49'))
+  sourceSheet.getRange('L45:L49').copyTo(destSheet.getRange('K45:K49'))
+  sourceSheet.getRange('M45:M49').copyTo(destSheet.getRange('L45:L49'))
+  sourceSheet.getRange('N45:N49').copyTo(destSheet.getRange('M45:M49'),{contentsOnly:true})
+  sourceSheet.getRange('B45').copyTo(destSheet.getRange('N45'))
+  //Seguridad
+  sourceSheet.getRange('C51:C55').copyTo(destSheet.getRange('B51:B55'))
+  sourceSheet.getRange('D51:D55').copyTo(destSheet.getRange('C51:C55'))
+  sourceSheet.getRange('E51:E55').copyTo(destSheet.getRange('D51:D55'))
+  sourceSheet.getRange('F51:F55').copyTo(destSheet.getRange('E51:E55'))
+  sourceSheet.getRange('G51:G55').copyTo(destSheet.getRange('F51:F55'))
+  sourceSheet.getRange('H51:H55').copyTo(destSheet.getRange('G51:G55'))
+  sourceSheet.getRange('I51:I55').copyTo(destSheet.getRange('H51:H55'))
+  sourceSheet.getRange('J51:J55').copyTo(destSheet.getRange('I51:I55'))
+  sourceSheet.getRange('K51:K55').copyTo(destSheet.getRange('J51:J55'))
+  sourceSheet.getRange('L51:L55').copyTo(destSheet.getRange('K51:K55'))
+  sourceSheet.getRange('M51:M55').copyTo(destSheet.getRange('L51:L55'))
+  sourceSheet.getRange('N51:N55').copyTo(destSheet.getRange('M51:M55'),{contentsOnly:true})
+  sourceSheet.getRange('B51').copyTo(destSheet.getRange('N51'))
+  // Colocar valores en 0  
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N7').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N5').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N6').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N7').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N10').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N11').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N12').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N13').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N16').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N17').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N18').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N19').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N22').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N23').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N24').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N25').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N28').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N29').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N30').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N31').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N34').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N35').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N36').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N37').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N40').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N41').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N42').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N43').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N46').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N47').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N48').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N49').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N52').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N53').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N54').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Datos').getRange('N55').setValue(0);
+}   
