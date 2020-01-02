@@ -804,41 +804,4 @@ function moveCols2() {
   sourceSheet.getRange('M51:M55').copyTo(destSheet.getRange('L51:L55'))
   sourceSheet.getRange('N51:N55').copyTo(destSheet.getRange('M51:M55'),{contentsOnly:true})
   sourceSheet.getRange('B51').copyTo(destSheet.getRange('N51'))
-  // Colocar valores en 0  
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N4').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N5').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N6').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N7').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N10').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N11').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N12').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N13').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N16').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N17').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N18').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N19').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N22').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N23').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N24').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N25').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N28').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N29').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N30').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N31').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N34').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N35').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N36').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N37').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N40').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N41').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N42').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N43').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N46').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N47').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N48').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N49').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N52').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N53').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N54').setValue(0);
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N55').setValue(0);
 }   
