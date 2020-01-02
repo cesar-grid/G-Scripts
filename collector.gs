@@ -805,7 +805,7 @@ function moveCols2() {
   sourceSheet.getRange('N51:N55').copyTo(destSheet.getRange('M51:M55'),{contentsOnly:true})
   sourceSheet.getRange('B51').copyTo(destSheet.getRange('N51'))
   // Colocar valores en 0  
-  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N7').setValue(0);
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N4').setValue(0);
   SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N5').setValue(0);
   SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N6').setValue(0);
   SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Analisis por area').getRange('N7').setValue(0);
